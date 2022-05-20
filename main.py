@@ -72,9 +72,9 @@ if image_file is not None:
     
     
     
-f = st.file_uploader("Upload file")
+f = st.file_uploader("Upload vid", type=['mp4'])
 
-if ff is not None:
+if f is not None:
     stframe = st.empty()
 
     while vf.isOpened():
