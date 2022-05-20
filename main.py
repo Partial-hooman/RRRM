@@ -80,7 +80,7 @@ image_file = st.file_uploader("Upload Your Image", type=['jpg', 'png', 'jpeg'])
 
 if image_file is not None:
     image = Image.open(image_file)
-    converted_img = np.array(image.convert('BGR'))
+    converted_img = np.array(image)
     proc_img = conv2manga(converted_img)
     st.image(proc_img, width=300)
 
