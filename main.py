@@ -97,11 +97,11 @@ if f is not None:
         result.write(dst2)
        # stframe.image(dst2)
         result.release()
-        vf.release()
         
-     video_file = open(tfile.name, 'rb')
-     video_bytes = video_file.read()
+        
+        video_file = open(tfile.name, 'rb')
+        video_bytes = video_file.read()
 
-     st.video(video_bytes)
+        st.video(video_bytes)
     
     
