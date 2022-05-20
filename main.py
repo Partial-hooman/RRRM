@@ -36,43 +36,30 @@ def conv2manga(image):
     return bl2
 
 
+def apply_brightness_contrast(input_img, brightness = 0, contrast = 0):
+    
+    if brightness != 0:
+        if brightness > 0:
+            shadow = brightness
+            highlight = 255
+        else:
+            shadow = 0
+            highlight = 255 + brightness
+        alpha_b = (highlight - shadow)/255
+        gamma_b = shadow
+        
+        buf = cv2.addWeighted(input_img, alpha_b, input_img, 0, gamma_b)
+    else:
+        buf = input_img.copy()
+    
+    if contrast != 0:
+        f = 131*(contrast + 127)/(127*(131-contrast))
+        alpha_c = f
+        gamma_c = 127*(1-f)
+        
+        buf = cv2.addWeighted(buf, alpha_c, buf, 0, gamma_c)
 
-def automatic_brightness_and_contrast(image, clip_hist_percent=1):
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    
-    # Calculate grayscale histogram
-    hist = cv2.calcHist([gray],[0],None,[256],[0,256])
-    hist_size = len(hist)
-    
-    # Calculate cumulative distribution from the histogram
-    accumulator = []
-    accumulator.append(float(hist[0]))
-    for index in range(1, hist_size):
-        accumulator.append(accumulator[index -1] + float(hist[index]))
-    
-    # Locate points to clip
-    maximum = accumulator[-1]
-    clip_hist_percent *= (maximum/100.0)
-    clip_hist_percent /= 2.0
-    
-    # Locate left cut
-    minimum_gray = 0
-    while accumulator[minimum_gray] < clip_hist_percent:
-        minimum_gray += 1
-    
-    # Locate right cut
-    maximum_gray = hist_size -1
-    while accumulator[maximum_gray] >= (maximum - clip_hist_percent):
-        maximum_gray -= 1
-    
-    # Calculate alpha and beta values
-    alpha = 255 / (maximum_gray - minimum_gray)
-    beta = -minimum_gray * alpha
-    
-   
-
-    auto_result = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
-    return (auto_result, alpha, beta)
+    return buf
 
 
 
@@ -86,7 +73,7 @@ if image_file is not None:
     image = Image.open(image_file)
     converted_img = np.array(image)
     proc_img = conv2manga(converted_img)
-    auto_result, alpha, beta = automatic_brightness_and_contrast(proc_img)
+    auto_result = apply_brightness_contrast(proc_img, brightness = 20, contrast = 0)
     dst = cv2.detailEnhance(auto_result, sigma_s=10, sigma_r=0.15)
 
     st.image(dst, width=None)
