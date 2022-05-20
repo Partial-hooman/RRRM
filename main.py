@@ -96,12 +96,15 @@ if f is not None:
         dst2 = cv2.detailEnhance(proc_frame, sigma_s=10, sigma_r=0.15)
         result.write(dst2)
        # stframe.image(dst2)
-        result.release()
+    
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+   result.release()
+   vf.release()
         
-        
-        video_file = open('output.mp4', 'rb')
-        video_bytes = video_file.read()
+   video_file = open('output.mp4', 'rb')
+   video_bytes = video_file.read()
 
-        st.video(video_bytes)
-        vf.release()
+   st.video(video_bytes)
+      
     
