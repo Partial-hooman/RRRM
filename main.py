@@ -96,8 +96,9 @@ if f is not None:
         dst2 = cv2.detailEnhance(proc_frame, sigma_s=10, sigma_r=0.15)
         result.write(dst2)
        # stframe.image(dst2)
-     vf.release()
-     result.release()
+        result.release()
+        vf.release()
+        
      video_file = open(tfile.name, 'rb')
      video_bytes = video_file.read()
 
