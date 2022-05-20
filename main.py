@@ -59,3 +59,31 @@ if image_file is not None:
 
     st.image(dst, width=None)
 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+f = st.file_uploader("Upload file")
+
+if ff is not None:
+    stframe = st.empty()
+
+    while vf.isOpened():
+        ret, frame = vf.read()
+        # if frame is read correctly ret is True
+        if not ret:
+            print("Can't receive frame (stream end?). Exiting ...")
+            break
+        proc_frame =  conv2manga(frame)
+        dst2 = cv2.detailEnhance(proc_frame, sigma_s=10, sigma_r=0.15)
+
+        stframe.image(dst2)
