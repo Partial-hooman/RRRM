@@ -88,7 +88,7 @@ if f is not None:
         if not ret:
             print("Can't receive frame (stream end?). Exiting ...")
             break
-        result = cv2.VideoWriter(tfile.name, 
+        result = cv2.VideoWriter('output.mp4', 
                          cv2.VideoWriter_fourcc(*'avc1'),
                          20, frame.shape[:2])
         
@@ -99,7 +99,7 @@ if f is not None:
         result.release()
         
         
-        video_file = open(tfile.name, 'rb')
+        video_file = open('output.mp4', 'rb')
         video_bytes = video_file.read()
 
         st.video(video_bytes)
