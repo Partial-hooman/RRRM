@@ -73,7 +73,7 @@ if image_file is not None:
     image = Image.open(image_file)
     converted_img = np.array(image)
     proc_img = conv2manga(converted_img)
-    auto_result = apply_brightness_contrast(proc_img, brightness = 20, contrast = 0)
+    auto_result = apply_brightness_contrast(proc_img, brightness = 60, contrast = 70)
     dst = cv2.detailEnhance(auto_result, sigma_s=10, sigma_r=0.15)
 
     st.image(dst, width=None)
