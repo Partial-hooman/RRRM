@@ -79,7 +79,7 @@ if f is not None:
     tfile.write(f.read())
 
 
-    vf = cv.VideoCapture(tfile.name)
+    vf = cv2.VideoCapture(tfile.name)
     stframe = st.empty()
 
     while vf.isOpened():
