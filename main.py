@@ -6,7 +6,7 @@ from  PIL import Image, ImageEnhance
 
 
 def conv2manga(image):
-    im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+    im_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
     edges  = cv2.adaptiveThreshold(im_gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 9, 8)
