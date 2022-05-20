@@ -11,7 +11,7 @@ def conv2manga(image):
 
     edges  = cv2.adaptiveThreshold(im_gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 9, 8)
 
-    n = 8 # Number of levels of quantization
+    n = 10 # Number of levels of quantization
 
     indices = np.arange(0,256)   # List of all colors 
 
