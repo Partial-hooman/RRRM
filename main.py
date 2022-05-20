@@ -21,9 +21,9 @@ def conv2manga(image):
     blend = cv2.addWeighted(thresh1, 0.5, cartoon, 0.8, 0.0)
     bl2 = cv2.cvtColor(blend, cv2.COLOR_GRAY2BGR)
     
-    dst = cv2.detailEnhance(bl2, sigma_s=10, sigma_r=0.15)
+    
 
-    return dst
+    return bl2
 
 
 
