@@ -89,5 +89,5 @@ if image_file is not None:
     auto_result, alpha, beta = automatic_brightness_and_contrast(proc_img)
     dst = cv2.detailEnhance(auto_result, sigma_s=10, sigma_r=0.15)
 
-    st.image(proc_img, width=640)
+    st.image(dst, width=640)
 
