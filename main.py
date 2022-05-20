@@ -98,8 +98,7 @@ if f is not None:
         result.write(dst2)
        # stframe.image(dst2)
     
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+
     result.release()
     vf.release()
         
