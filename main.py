@@ -77,7 +77,8 @@ f = st.file_uploader("Upload vid", type=['mp4'])
 if f is not None:
     tfile = tempfile.NamedTemporaryFile(delete=False) 
     tfile.write(f.read())
-
+   
+      
 
     vf = cv2.VideoCapture(tfile.name)
    # stframe = st.empty()
@@ -99,12 +100,11 @@ if f is not None:
     
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-   result.release()
-   vf.release()
+          result.release()
+    vf.release()
         
-   video_file = open('output.mp4', 'rb')
-   video_bytes = video_file.read()
+    video_file = open('output.mp4', 'rb')
+    video_bytes = video_file.read()
 
-   st.video(video_bytes)
-      
+    st.video(video_bytes)
     
