@@ -100,7 +100,7 @@ if f is not None:
     
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-          result.release()
+    result.release()
     vf.release()
         
     video_file = open('output.mp4', 'rb')
