@@ -11,13 +11,21 @@ def conv2manga(image):
 
     edges  = cv2.adaptiveThreshold(im_gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 9, 8)
 
+    n = 5   # Number of levels of quantization
 
+    indices = np.arange(0,256)   # List of all colors 
 
+    divider = np.linspace(0,255,n+1)[1] # we get a divider
 
-    n = 8
+    quantiz = np.int0(np.linspace(0,255,n)) # we get quantization colors
 
-    for i in range(n):
-        im_gray[(im_gray >= i*255/n) & (im_gray < (i+1)*255/n)] = i*255/(n-1)
+    color_levels = np.clip(np.int0(indices/divider),0,n-1) # color levels 0,1,2..
+
+    palette = quantiz[color_levels] # Creating the palette
+
+    im_gray = palette[im_gray]  # Applying palette on image
+
+    im_gray = cv2.convertScaleAbs(im_gray) # Converting image back to uint8
 
     cartoon = cv2.bitwise_and(im_gray, im_gray, mask=edges)
 
@@ -36,32 +44,6 @@ def conv2manga(image):
     return bl2
 
 
-def apply_brightness_contrast(input_img, brightness = 0, contrast = 0):
-    
-    if brightness != 0:
-        if brightness > 0:
-            shadow = brightness
-            highlight = 255
-        else:
-            shadow = 0
-            highlight = 255 + brightness
-        alpha_b = (highlight - shadow)/255
-        gamma_b = shadow
-        
-        buf = cv2.addWeighted(input_img, alpha_b, input_img, 0, gamma_b)
-    else:
-        buf = input_img.copy()
-    
-    if contrast != 0:
-        f = 131*(contrast + 127)/(127*(131-contrast))
-        alpha_c = f
-        gamma_c = 127*(1-f)
-        
-        buf = cv2.addWeighted(buf, alpha_c, buf, 0, gamma_c)
-
-    return buf
-
-
 
 
 
@@ -73,8 +55,7 @@ if image_file is not None:
     image = Image.open(image_file)
     converted_img = np.array(image)
     proc_img = conv2manga(converted_img)
-    auto_result = apply_brightness_contrast(proc_img, brightness = 50, contrast = 40)
-    dst = cv2.detailEnhance(auto_result, sigma_s=10, sigma_r=0.15)
+    dst = cv2.detailEnhance(proc_img, sigma_s=10, sigma_r=0.15)
 
     st.image(dst, width=None)
 
