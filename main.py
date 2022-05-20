@@ -14,7 +14,7 @@ def conv2manga(image):
 
 
 
-    n = 12
+    n = 5
 
     for i in range(n):
         im_gray[(im_gray >= i*255/n) & (im_gray < (i+1)*255/n)] = i*255/(n-1)
