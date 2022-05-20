@@ -75,6 +75,11 @@ if image_file is not None:
 f = st.file_uploader("Upload vid", type=['mp4'])
 
 if f is not None:
+    tfile = tempfile.NamedTemporaryFile(delete=False) 
+    tfile.write(f.read())
+
+
+    vf = cv.VideoCapture(tfile.name)
     stframe = st.empty()
 
     while vf.isOpened():
