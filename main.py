@@ -103,5 +103,5 @@ if f is not None:
         video_bytes = video_file.read()
 
         st.video(video_bytes)
-    
+        vf.release()
     
