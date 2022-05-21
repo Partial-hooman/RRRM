@@ -83,7 +83,7 @@ if f is not None:
     vf = cv2.VideoCapture(tfile.name)
     returnus, frames = vf.read()
     result = cv2.VideoWriter('output.mp4', 
-                         cv2.VideoWriter_fourcc(*'avc1'),
+                         cv2.VideoWriter_fourcc(*'avc3'),
                          20, frames.shape[:2])
    # stframe = st.empty()
 
