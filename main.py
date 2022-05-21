@@ -81,6 +81,10 @@ if f is not None:
       
 
     vf = cv2.VideoCapture(tfile.name)
+    returnus, frames = vf.read()
+    result = cv2.VideoWriter('output.mp4', 
+                         cv2.VideoWriter_fourcc(*'avc1'),
+                         20, frames.shape[:2])
    # stframe = st.empty()
 
     while vf.isOpened():
@@ -89,13 +93,14 @@ if f is not None:
         if not ret:
             print("Can't receive frame (stream end?). Exiting ...")
             break
-        result = cv2.VideoWriter('output.mp4', 
-                         cv2.VideoWriter_fourcc(*'avc1'),
-                         20, frame.shape[:2])
         
         proc_frame =  conv2manga(frame)
         dst2 = cv2.detailEnhance(proc_frame, sigma_s=10, sigma_r=0.15)
         result.write(dst2)
+        
+        if frame is None:
+           break
+    
        # stframe.image(dst2)
     
 
