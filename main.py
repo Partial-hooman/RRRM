@@ -134,8 +134,8 @@ if f is not None:
     proc.stdin.close()
     proc.wait()
     
-    #video_file = open('output.mp4', 'rb')
-    #video_bytes = video_file.read()
+    video_file = open('output_file_name.mp4', 'rb')
+    video_bytes = video_file.read()
 
-    st.video(proc.stdout)
+    st.video(video_bytes)
     
