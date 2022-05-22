@@ -105,7 +105,7 @@ if f is not None:
             '-b:v', '5000k',
             'output_file_name.mp4']
 
-    proc = sp.Popen(command, stdin=sp.PIPE, stdout=sp.PIPE)
+    proc = sp.Popen(command, stdin=sp.PIPE, stderr=sp.PIPE)
    # stframe = st.empty()
       
     
@@ -132,6 +132,7 @@ if f is not None:
     #result.release()
     vf.release()
     proc.stdin.close()
+    proc.stderr.close()
     proc.wait()
     
     video_file = open('output_file_name.mp4', 'rb')
