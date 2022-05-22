@@ -81,32 +81,32 @@ if f is not None:
       
 
     vf = cv2.VideoCapture(tfile.name)
-    returnus, frames = vf.read()
+    #returnus, frames = vf.read()
     #result = cv2.VideoWriter('output.mp4', 
                          #cv2.VideoWriter_fourcc(*'x264'),
                          #20, frames.shape[:2])
     
-    ffmpeg = 'ffmpeg'
-    dimension = '{}x{}'.format(frames.shape[0], frames.shape[1])
-    f_format = 'bgr24' # remember OpenCV uses bgr format
-    fps = str(vf.get(cv2.CAP_PROP_FPS))
+    #ffmpeg = 'ffmpeg'
+    #dimension = '{}x{}'.format(frames.shape[0], frames.shape[1])
+    #f_format = 'bgr24' # remember OpenCV uses bgr format
+    #fps = str(vf.get(cv2.CAP_PROP_FPS))
     
     
-    command = [ffmpeg,
-            '-y',
-            '-f', 'rawvideo',
-            '-vcodec','rawvideo',
-            '-s', dimension,
-            '-pix_fmt', 'bgr24',
-            '-r', fps,
-            '-i', '-',
-            '-an',
-            '-vcodec', 'mpeg4',
-            '-b:v', '5000k',
-            'output_file_name.mp4']
+    #command = [ffmpeg,
+            #'-y',
+            #'-f', 'rawvideo',
+            #'-vcodec','rawvideo',
+            #'-s', dimension,
+            #'-pix_fmt', 'bgr24',
+            #'-r', fps,
+            #'-i', '-',
+            #'-an',
+            #'-vcodec', 'mpeg4',
+            #'-b:v', '5000k',
+            #'output_file_name.mp4']
 
-    proc = sp.Popen(command, stdin=sp.PIPE, stderr=sp.PIPE)
-   # stframe = st.empty()
+    #proc = sp.Popen(command, stdin=sp.PIPE, stderr=sp.PIPE)
+    stframe = st.empty()
       
     
     
@@ -122,21 +122,21 @@ if f is not None:
         proc_frame =  conv2manga(frame)
         dst2 = cv2.detailEnhance(proc_frame, sigma_s=10, sigma_r=0.15)
         #result.write(dst2)
-        proc.stdin.write(dst2.tobytes())
-        if frame is None:
-           break
-    
-       # stframe.image(dst2)
+        #proc.stdin.write(dst2.tobytes())
+        #if frame is None:
+           #break
+        frameBytes = cv2.imencode('.png', dst2)[1].tobytes()
+        stframe.image(frameBytes)
     
 
     #result.release()
-    vf.release()
-    proc.stdin.close()
-    proc.stderr.close()
-    proc.wait()
+    #vf.release()
+    #proc.stdin.close()
+    #proc.stderr.close()
+    #proc.wait()
     
-    video_file = open('output_file_name.mp4', 'rb')
-    video_bytes = video_file.read()
+    #video_file = open('output_file_name.mp4', 'rb')
+    #video_bytes = video_file.read()
 
-    st.video(video_bytes)
+    #st.video(video_bytes)
     
