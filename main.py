@@ -103,7 +103,7 @@ if f is not None:
             '-an',
             '-vcodec', 'mpeg4',
             '-b:v', '5000k',
-            '"output_file_name.mp4"']
+            'output_file_name.mp4']
 
     proc = sp.run(command, stdin=sp.PIPE, stdout=sp.PIPE)
    # stframe = st.empty()
