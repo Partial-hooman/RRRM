@@ -83,8 +83,8 @@ if f is not None:
     vf = cv2.VideoCapture(tfile.name)
     returnus, frames = vf.read()
     #result = cv2.VideoWriter('output.mp4', 
-                         cv2.VideoWriter_fourcc(*'x264'),
-                         20, frames.shape[:2])
+                         #cv2.VideoWriter_fourcc(*'x264'),
+                         #20, frames.shape[:2])
     
     ffmpeg = 'FFMPEG'
     dimension = '{}x{}'.format(frames.shape[0], frames.shape[1])
