@@ -127,7 +127,7 @@ if f is not None:
            #break
         frameBytes = cv2.imencode('.png', dst2)[1].tobytes()
         with st.empty():
-             stframe.video(dst2)
+             stframe.image(dst2)
         #stframe.video(dst2)
     
 
