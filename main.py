@@ -86,7 +86,7 @@ if f is not None:
                          #cv2.VideoWriter_fourcc(*'x264'),
                          #20, frames.shape[:2])
     
-    ffmpeg = 'FFMPEG'
+    ffmpeg = 'ffmpeg'
     dimension = '{}x{}'.format(frames.shape[0], frames.shape[1])
     f_format = 'bgr24' # remember OpenCV uses bgr format
     fps = str(vf.get(cv2.CAP_PROP_FPS))
