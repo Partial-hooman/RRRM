@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 from  PIL import Image, ImageEnhance 
 import tempfile
-
+import subprocess as sp
 
 def conv2manga(image):
     im_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -82,11 +82,36 @@ if f is not None:
 
     vf = cv2.VideoCapture(tfile.name)
     returnus, frames = vf.read()
-    result = cv2.VideoWriter('output.mp4', 
+    #result = cv2.VideoWriter('output.mp4', 
                          cv2.VideoWriter_fourcc(*'x264'),
                          20, frames.shape[:2])
-   # stframe = st.empty()
+    
+    ffmpeg = 'FFMPEG'
+    dimension = '{}x{}'.format(frames.shape[0], frames.shape[1])
+    f_format = 'bgr24' # remember OpenCV uses bgr format
+    fps = str(vf.get(cv2.CAP_PROP_FPS))
+    
+    
+    command = [ffmpeg,
+            '-y',
+            '-f', 'rawvideo',
+            '-vcodec','rawvideo',
+            '-s', dimension,
+            '-pix_fmt', 'bgr24',
+            '-r', fps,
+            '-i', '-',
+            '-an',
+            '-vcodec', 'mpeg4',
+            '-b:v', '5000k',
+            output_file ]
 
+    proc = sp.run(command, stdin=sp.PIPE, stdout=sp.PIPE)
+   # stframe = st.empty()
+      
+    
+    
+    
+    
     while vf.isOpened():
         ret, frame = vf.read()
         # if frame is read correctly ret is True
@@ -96,19 +121,21 @@ if f is not None:
         
         proc_frame =  conv2manga(frame)
         dst2 = cv2.detailEnhance(proc_frame, sigma_s=10, sigma_r=0.15)
-        result.write(dst2)
-        
+        #result.write(dst2)
+        proc.stdin.write(frame.tostring())
         if frame is None:
            break
     
        # stframe.image(dst2)
     
 
-    result.release()
+    #result.release()
     vf.release()
-        
-    video_file = open('output.mp4', 'rb')
-    video_bytes = video_file.read()
+    proc.stdin.close()
+    proc.wait()
+    
+    #video_file = open('output.mp4', 'rb')
+    #video_bytes = video_file.read()
 
-    st.video(video_bytes)
+    st.video(proc.stdout)
     
