@@ -122,7 +122,7 @@ if f is not None:
         proc_frame =  conv2manga(frame)
         dst2 = cv2.detailEnhance(proc_frame, sigma_s=10, sigma_r=0.15)
         #result.write(dst2)
-        proc.stdin.write(frame.tostring())
+        proc.stdin.write(dst2.tostring())
         if frame is None:
            break
     
