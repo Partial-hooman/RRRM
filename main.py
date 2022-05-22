@@ -105,7 +105,7 @@ if f is not None:
             '-b:v', '5000k',
             'output_file_name.mp4']
 
-    proc = sp.run(command, stdin=sp.PIPE, stdout=sp.PIPE)
+    proc = sp.Popen(command, stdin=sp.PIPE, stdout=sp.PIPE)
    # stframe = st.empty()
       
     
