@@ -90,7 +90,7 @@ if f is not None:
  
              # check if the image ends with png
              if (images.endswith(".jpeg")):
-                 st.image(conv2manga(images), width=None)
+                 st.image(conv2manga(np.array(images)), width=None)
          
       
     
