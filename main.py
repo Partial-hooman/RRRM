@@ -4,6 +4,10 @@ import streamlit as st
 from  PIL import Image, ImageEnhance 
 import tempfile
 import subprocess as sp
+import os
+
+
+
 
 def conv2manga(image):
     im_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -77,7 +81,16 @@ f = st.file_uploader("Upload vid", type=['mp4'])
 if f is not None:
     tfile = tempfile.NamedTemporaryFile(delete=False) 
     tfile.write(f.read())
-   
+    with tempfile.TemporaryDirectory() as tmpdirname:
+         print('created temporary directory', tmpdirname)
+         os.chdir(tmpdirname)
+         sp.run(["ffmpeg -i", '"' + tfile.name + '"', "-vf "select='eq(pict_type,I)'" -vsync vfr out-%02d.jpeg"], stdin=sp.PIPE, stdout=sp.PIPE, shell=True)
+         for images in os.listdir(tmpdirname):
+ 
+             # check if the image ends with png
+             if (images.endswith(".jpg")):
+                 print(images)
+         
       
     
     
