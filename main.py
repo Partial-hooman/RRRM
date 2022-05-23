@@ -85,11 +85,11 @@ if f is not None:
          print('created temporary directory', tmpdirname)
          os.chdir(tmpdirname)
          fn = '"' + tfile.name + '"'
-         sp.run(["ffmpeg -i" + " " + {fn} + " " + "-vf "select='eq(pict_type,I)'" -vsync vfr out-%02d.jpeg"], stdin=sp.PIPE, stdout=sp.PIPE, shell=True)
+         sp.run(["ffmpeg", "-i", fn, "-vf", ""select='eq(pict_type,I)'"", "-vsync", "vfr", "out-%02d.jpeg"], stdin=sp.PIPE, stdout=sp.PIPE, shell=True)
          for images in os.listdir(tmpdirname):
  
              # check if the image ends with png
-             if (images.endswith(".jpg")):
+             if (images.endswith(".jpeg")):
                  print(images)
          
       
