@@ -85,7 +85,7 @@ if f is not None:
          print('created temporary directory', tmpdirname)
          os.chdir(tmpdirname)
          fn = '"' + tfile.name + '"'
-         sp.run(['ffmpeg -skip_frame nokey -i', fn, '-vsync vfr -frame_pts true out-%02d.jpeg'], stdin=sp.PIPE, stdout=sp.PIPE, shell=True)
+         sp.run(['ffmpeg', '-skip_frame', 'nokey', '-i', fn, '-vsync', 'vfr' ,'-frame_pts', 'true', 'out-%02d.jpeg'], stdin=sp.PIPE, stdout=sp.PIPE, shell=True)
          for images in os.listdir(tmpdirname):
  
              # check if the image ends with png
