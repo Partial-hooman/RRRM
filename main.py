@@ -85,7 +85,7 @@ if f is not None:
          print('created temporary directory', tmpdirname)
          os.chdir(tmpdirname)
          fn = '"' + tfile.name + '"'
-         os.system("scenedetect --input" + " " + fn + " " + "detect-content list-scenes save-images")
+         os.system("ffmpeg -skip_frame nokey -i" + " " + fn + " " + "-vsync vfr -frame_pts true out-%02d.jpeg")
          for images in os.listdir(tmpdirname):
  
              # check if the image ends with png
