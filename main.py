@@ -92,7 +92,7 @@ if f is not None:
             ret,frame = cap.read()#reading the data tunnel,gives two output where one tells about presence of frames(here it's ret) & the other speaks frame data(here it's frame)
             if frame is None:
                 break
-           if ret == True:#checking for presence of frames
+           if ret == True:
                cv2.imshow("fbyf",frame)#displaying the frames
                grayed = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)#Converting the frames to Grayscale from BGR
                canned = cv2.Canny(grayed,320,320)#For extrating edges we use Canny Edge detection method
