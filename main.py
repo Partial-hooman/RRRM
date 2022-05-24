@@ -79,18 +79,7 @@ if image_file is not None:
 f = st.file_uploader("Upload vid", type=['mp4'])
 
 if f is not None:
-    tfile = tempfile.NamedTemporaryFile(delete=False) 
-    tfile.write(f.read())
-    with tempfile.TemporaryDirectory() as tmpdirname:
-         print('created temporary directory', tmpdirname)
-         os.chdir(tmpdirname)
-         fn = '"' + tfile.name + '"'
-         os.system("ffmpeg -skip_frame nokey -i" + " " + fn + " " + "-vsync vfr -frame_pts true out-%02d.jpeg")
-         for images in os.listdir(tmpdirname):
- 
-             # check if the image ends with png
-             if (images.endswith(".jpeg")):
-                 st.image(conv2manga(np.uint8(images)), width=None)
+    pass
          
       
     
