@@ -92,14 +92,10 @@ if f is not None:
             if frame is None:
                 break
             if ret == True:
-               cv2.imshow("fbyf",frame)#displaying the frames
                grayed = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)#Converting the frames to Grayscale from BGR
                canned = cv2.Canny(grayed,320,320)#For extrating edges we use Canny Edge detection method
                fr.append(frame)#Appending the read frame
                fr_pre.append(canned)#Appending the edge extracted frames
-               cv2.imshow("Grayed",grayed)#Displaying the original frames
-               cv2.imshow("Canned",canned)#Displaying the edge detected frames
-               k = cv2.waitKey(10) & 0XFF#this is an arrangement for displaying the video where the secs for which each frame needs to be displayed in given in the paranthesis
 
         cap.release()#Here we release the resoures   
         return fr_pre,fr     #returning the frames received after the execution of function
