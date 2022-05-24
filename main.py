@@ -101,8 +101,7 @@ if f is not None:
                cv2.imshow("Grayed",grayed)#Displaying the original frames
                cv2.imshow("Canned",canned)#Displaying the edge detected frames
                k = cv2.waitKey(10) & 0XFF#this is an arrangement for displaying the video where the secs for which each frame needs to be displayed in given in the paranthesis
-        else:
-            break
+
         cap.release()#Here we release the resoures   
         return fr_pre,fr     #returning the frames received after the execution of function
     frames,ogframes = framing(tfile.name)
