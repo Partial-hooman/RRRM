@@ -80,7 +80,6 @@ f = st.file_uploader("Upload vid", type=['mp4'])
 
 if f is not None:
     
-    f = st.file_uploader("Upload file")
     tfile = tempfile.NamedTemporaryFile(delete=False)
     tfile.write(f.read())
     
