@@ -66,11 +66,23 @@ if image_file is not None:
 
 
     
-    
-    
-    
-    
-    
+
+
+
+
+class VideoProcessor:
+   def recv(self, frame):
+       img = frame.to_ndarray(format="bgr24")
+
+       img = conv2manga(img)
+       dst2 = cv2.detailEnhance(img, sigma_s=10, sigma_r=0.15)
+
+
+       return av.VideoFrame.from_ndarray(dst2, format="bgr24")  
+   
+
+
+webrtc_streamer(key="example", video_processor_factory=VideoProcessor)
     
     
     
