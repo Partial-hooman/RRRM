@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import streamlit as st
 from  PIL import Image, ImageEnhance 
-from streamlit_webrtc import webrtc_streamer
+from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
 import av
 
 
@@ -65,7 +65,10 @@ if image_file is not None:
 
 
     
-
+RTC_CONFIGURATION = RTCConfiguration( 
+     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]} 
+ ) 
+ 
 
 
 
