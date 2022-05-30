@@ -65,9 +65,13 @@ if image_file is not None:
 
 
     
-RTC_CONFIGURATION = RTCConfiguration( 
-     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]} 
- ) 
+webrtc_streamer(
+    # ...
+    rtc_configuration={  # Add this config
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+    }
+    # ...
+)
  
 
 
