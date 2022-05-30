@@ -69,7 +69,7 @@ if image_file is not None:
 
 
 
-class VideoProcessor(VideoProcessorBase):
+class VideoProcessor:
         frame_lock: threading.Lock  # `transform()` is running in another thread, then a lock object is used here for thread-safety.
         
         out_image: Union[np.ndarray, None]
@@ -104,12 +104,12 @@ class VideoProcessor(VideoProcessorBase):
 
 ctx = webrtc_streamer(key="example", video_processor_factory=VideoProcessor)
 
-if ctx.VideoProcessor:
+if ctx.video_processor:
 
         snap = st.button("Snapshot")
         if snap:
-            with ctx.VideoProcessor.frame_lock:
-                out_image = ctx.VideoProcessor.out_image
+            with ctx.video_processor.frame_lock:
+                out_image = ctx.video_processor.out_image
 
             if out_image is not None:
                 
