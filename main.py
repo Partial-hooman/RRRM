@@ -70,19 +70,55 @@ if image_file is not None:
 
 
 class VideoProcessor:
-   def recv(self, frame):
-       img = frame.to_ndarray(format="bgr24")
+        frame_lock: threading.Lock  # `transform()` is running in another thread, then a lock object is used here for thread-safety.
+        
+        out_image: Union[np.ndarray, None]
 
-       img = conv2manga(img)
-       dst2 = cv2.detailEnhance(img, sigma_s=10, sigma_r=0.15)
+        def __init__(self) -> None:
+            self.frame_lock = threading.Lock()
+            
+            self.out_image = None
+
+        def transform(self, frame: av.VideoFrame) -> np.ndarray:
+            out_image = frame.to_ndarray(format="bgr24")
+            out_image = conv2manga(out_image)
+            out_image = cv2.detailEnhance(out_image, sigma_s=10, sigma_r=0.15)
 
 
-       return av.VideoFrame.from_ndarray(dst2, format="bgr24")  
+            with self.frame_lock:
+                
+                self.out_image = out_image
+            return out_image
+
+
+
+        def recv(self, frame):
+            img = frame.to_ndarray(format="bgr24")
+
+            
+
+
+            return av.VideoFrame.from_ndarray(dst2, format="bgr24")  
    
 
 
-webrtc_streamer(key="example", video_processor_factory=VideoProcessor)
-    
+ctx = webrtc_streamer(key="example", video_processor_factory=VideoProcessor)
+
+if ctx.VideoProcessor:
+
+        snap = st.button("Snapshot")
+        if snap:
+            with ctx.VideoProcessor.frame_lock:
+                out_image = ctx.VideoProcessor.out_image
+
+            if out_image is not None:
+                
+                st.write("Output image:")
+                st.image(out_image, channels="BGR")
+               
+
+            else:
+                st.warning("No frames available yet.")    
     
     
     
