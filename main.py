@@ -69,7 +69,7 @@ if image_file is not None:
 
 
 
-class VideoProcessor:
+class VideoProcessor(VideoProcessorBase):
         frame_lock: threading.Lock  # `transform()` is running in another thread, then a lock object is used here for thread-safety.
         
         out_image: Union[np.ndarray, None]
