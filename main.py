@@ -66,9 +66,6 @@ if image_file is not None:
 
     
 
-RTCConfiguration=RTCConfiguration{  # Add this config
-        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
-    }
     
  
 
@@ -107,7 +104,7 @@ class VideoProcessor:
    
 
 
-ctx = webrtc_streamer(key="example", video_processor_factory=VideoProcessor)
+ctx = webrtc_streamer(key="example", rtc_configuration={ "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]} ,video_processor_factory=VideoProcessor)
 
 if ctx.video_processor:
 
