@@ -5,7 +5,8 @@ from  PIL import Image, ImageEnhance
 import tempfile
 import subprocess as sp
 import os
-
+from streamlit_webrtc import webrtc_streamer
+import av
 
 
 
@@ -76,10 +77,7 @@ if image_file is not None:
     
     
     
-f = st.file_uploader("Upload vid", type=['mp4'])
 
-if f is not None:
-     pass
 
     
  
