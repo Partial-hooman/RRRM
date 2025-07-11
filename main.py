@@ -20,7 +20,7 @@ def conv2manga(image):
 
     quantiz = np.int64(np.linspace(0,255,n)) # we get quantization colors
 
-    color_levels = np.clip(np.int0(indices/divider),0,n-1) # color levels 0,1,2..
+    color_levels = np.clip(np.int64(indices/divider),0,n-1) # color levels 0,1,2..
 
     palette = quantiz[color_levels] # Creating the palette
 
