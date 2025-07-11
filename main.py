@@ -18,7 +18,7 @@ def conv2manga(image):
 
     divider = np.linspace(0,255,n+1)[1] # we get a divider
 
-    quantiz = np.int0(np.linspace(0,255,n)) # we get quantization colors
+    quantiz = np.int64(np.linspace(0,255,n)) # we get quantization colors
 
     color_levels = np.clip(np.int0(indices/divider),0,n-1) # color levels 0,1,2..
 
