@@ -1,3 +1,4 @@
+from io import BytesIO
 import cv2
 import numpy as np
 import streamlit as st
@@ -59,8 +60,16 @@ if image_file is not None:
     dst = cv2.detailEnhance(proc_img, sigma_s=10, sigma_r=0.15)
 
     st.image(dst, width=None)
-
-
+    is_success, im_buf_arr = cv2.imencode(".jpg", dst)
+    buf = BytesIO(im_buf_arr)
+    #Image.save(buf, format="JPEG")
+    byte_im = buf.getvalue()
+    btn = col.download_button(
+      label="Download Image",
+      data=byte_im,
+      file_name="imagename.png",
+      mime="image/jpeg",
+    )
     
 
     
