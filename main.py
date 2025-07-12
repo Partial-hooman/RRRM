@@ -64,7 +64,7 @@ if image_file is not None:
     buf = BytesIO(im_buf_arr)
     #Image.save(buf, format="JPEG")
     byte_im = buf.getvalue()
-    btn = col.download_button(
+    btn = st.download_button(
       label="Download Image",
       data=byte_im,
       file_name="imagename.png",
